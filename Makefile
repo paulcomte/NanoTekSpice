@@ -9,11 +9,13 @@ CC		= g++
 
 CFLAGS	= -std=c++20 -Wall -Wextra -Werror
 
-SRC		= $(wildcard *.cpp)
+SRC		= $(wildcard src/*.cpp)
+
+SRC		+= $(wildcard src/*/*.cpp)
 
 OBJ 	= $(SRC:.cpp=.o)
 
-OUT		= my_cat
+OUT		= nanotekspice
 
 all: $(OUT)
 
