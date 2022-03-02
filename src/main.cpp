@@ -7,6 +7,7 @@
 
 #include "IComponent.hpp"
 #include "ComponentManager.hpp"
+#include "FileManager.hpp"
 #include <fstream>
 
 int main(int argc, char **argv)
@@ -20,6 +21,7 @@ int main(int argc, char **argv)
 
     if (!file.is_open())
         std::cerr << "nanotekspice: " << argv[1] << ": No such file or directory" << std::endl;
+    parseFile(file);
     std::cout << file.rdbuf();
     file.close();
     return (0);
