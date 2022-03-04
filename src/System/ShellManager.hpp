@@ -20,6 +20,19 @@ class ShellManager {
         void parseCommand(std::string command);
         void runShell();
 
+        class Error : public std::exception {
+            public:
+
+                Error(std::string message) : _message(message) {}
+
+                char const *what() const noexcept override {
+                    return (this->_message).c_str();
+                }
+
+            private:
+                std::string const _message;
+        };
+
     private:
         bool _setTty(void);
         bool _tty;

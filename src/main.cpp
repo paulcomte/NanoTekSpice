@@ -5,8 +5,7 @@
 ** main file
 */
 
-#include "IComponent.hpp"
-#include "ShellManager.hpp"
+#include "System/ShellManager.hpp"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -20,7 +19,6 @@ int main(int argc, char **argv)
     ShellManager shell;
     shell.runShell();
     std::ifstream file(argv[1]);
-    size_t len = 0;
 
     if (!file.is_open()) {
         std::cerr << "nanotekspice: " << argv[1] << ": No such file or directory" << std::endl;

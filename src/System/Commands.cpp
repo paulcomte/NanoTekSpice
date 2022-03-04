@@ -11,11 +11,12 @@
 namespace Commands {
 
     void display() {
-        std::cout << "tick:" << std::endl;
-        std::cout << "input(s):";
-        std::cout << std::endl;
-        std::cout << "output(s):";
-        std::cout << std::endl;
+        std::cout
+            << "tick:" << std::endl
+            << "input(s):"
+            << std::endl
+            << "output(s):"
+            << std::endl;
     }
 
     void exit() {

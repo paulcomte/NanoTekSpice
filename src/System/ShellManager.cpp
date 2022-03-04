@@ -23,11 +23,14 @@ void ShellManager::runShell() {
 
     if (this->isTty())
          std::cout << "> ";
-    while (std::getline(std::cin, line)) {
-         this->parseCommand(line);
-         if (this->isTty())
-             std::cout << "> ";
+    if (!(std::getline(std::cin, line)))
+        return;
+    try {
+        this->parseCommand(line);
+    } catch (ShellManager::Error &error) {
+        std::cerr << error.what() << std::endl;
     }
+    runShell();
 }
 
 void ShellManager::parseCommand(std::string commandName)
@@ -35,7 +38,7 @@ void ShellManager::parseCommand(std::string commandName)
     ICommand *command = this->_retrieveCommand(commandName);
 
     if (command == nullptr)
-        return;
+        throw ShellManager::Error("Unknown command" + std::string(": ") + commandName + " >> does not exist!");
     command->execute();
 }
 

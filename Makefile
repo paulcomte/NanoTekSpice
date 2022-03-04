@@ -7,7 +7,7 @@
 
 CC		= g++
 
-CFLAGS	= -std=c++20 -Wall -Wextra -Werror
+CFLAGS	= -std=c++20 -Wall -Wextra -Werror -g3
 
 SRC		= $(wildcard src/*.cpp)
 
@@ -20,7 +20,7 @@ OUT		= nanotekspice
 all: $(OUT)
 
 $(OUT): $(OBJ)
-	$(CC) -o $@ $(SRC)
+	$(CC) -o $@ $(SRC) $(CFLAGS)
 
 clean:
 	$(RM) -rf $(OBJ)
