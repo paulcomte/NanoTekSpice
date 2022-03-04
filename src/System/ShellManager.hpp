@@ -12,10 +12,11 @@
     #include <vector>
     #include <memory>
     #include "ICommand.hpp"
+    #include "../Component/ComponentManager.hpp"
 
 class ShellManager {
     public:
-        ShellManager();
+        ShellManager(ComponentManager componentManager);
         ~ShellManager() {}
         bool isTty();
         void parseCommand(std::string command);
@@ -48,6 +49,7 @@ class ShellManager {
         };
 
     private:
+        ComponentManager _componentManager;
         bool _setTty(void);
         bool _tty;
         std::vector<std::unique_ptr<ICommand>> _commands;

@@ -10,7 +10,7 @@
 #include <iostream>
 #include <fstream>
 
-ShellManager::ShellManager() {
+ShellManager::ShellManager(ComponentManager componentManager) : _componentManager(componentManager) {
     this->_tty = _setTty();
 
     this->_commands.push_back(std::unique_ptr<ICommand>(new ICommand(Commands::display, std::string("display"))));
@@ -28,7 +28,7 @@ void ShellManager::runShell() {
     try {
         this->parseCommand(line);
     } catch (ShellManager::Error const &error) {
-        std::cerr << error.what() << std::endl;
+        std::cerr << "SHELL MANAGER ERROR | " << error.what() << std::endl;
     } catch (ShellManager::Exit const &ignored) {
         return;
     }

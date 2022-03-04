@@ -7,9 +7,8 @@
 
 #include "System/ShellManager.hpp"
 #include "System/FileManager.hpp"
-#include <fstream>
+#include "Component/ComponentManager.hpp"
 #include <iostream>
-#include <string>
 
 int main(int argc, char **argv)
 {
@@ -23,14 +22,18 @@ int main(int argc, char **argv)
     try {
         fileContent = fileManager.readFile();
     } catch(FileManager::Error const &error) {
-        std::cerr << error.what() << std::endl;
+        std::cerr << "FILE MANAGER ERROR | " << error.what() << std::endl;
         return (84);
     }
 
-    // for (std::string string : fileContent)
-    //     std::cout << "[" << string << "]" << std::endl;
+    try {
+        ComponentManager componentManager(fileContent);
+        ShellManager shell(componentManager);
+        shell.runShell();
+    } catch (ComponentManager::Error const &error) {
+        std::cerr << "COMPONENT MANAGER ERROR | " << error.what() << std::endl;
+        return (84);
+    }
 
-    ShellManager shell;
-    shell.runShell();
     return (0);
 }
