@@ -16,6 +16,7 @@
 class ShellManager {
     public:
         ShellManager();
+        ~ShellManager() {}
         bool isTty();
         void parseCommand(std::string command);
         void runShell();
@@ -24,6 +25,19 @@ class ShellManager {
             public:
 
                 Error(std::string message) : _message(message) {}
+
+                char const *what() const noexcept override {
+                    return (this->_message).c_str();
+                }
+
+            private:
+                std::string const _message;
+        };
+
+        class Exit : public std::exception {
+            public:
+
+                Exit(std::string message) : _message(message) {}
 
                 char const *what() const noexcept override {
                     return (this->_message).c_str();

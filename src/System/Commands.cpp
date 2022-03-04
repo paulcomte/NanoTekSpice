@@ -6,6 +6,7 @@
 */
 
 #include "Commands.hpp"
+#include "ShellManager.hpp"
 #include <iostream>
 
 namespace Commands {
@@ -20,7 +21,7 @@ namespace Commands {
     }
 
     void exit() {
-        std::exit(0);
+        throw ShellManager::Exit("");
     }
 
     void simulate() {

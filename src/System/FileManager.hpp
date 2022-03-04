@@ -16,7 +16,7 @@
 class FileManager {
     public:
         FileManager(std::string filepath);
-        ~FileManager();
+        ~FileManager() {}
 
         std::vector<std::string> readFile();
 
@@ -38,6 +38,7 @@ class FileManager {
         std::ifstream _file;
         bool _hasValidName();
         bool _isInteractable();
+        std::vector<std::string> _getContent();
 };
 
 #endif /* !FILEMANAGER_HPP_ */

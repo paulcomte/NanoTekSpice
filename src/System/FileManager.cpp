@@ -7,32 +7,14 @@
 
 #include "FileManager.hpp"
 
-FileManager::FileManager(std::string filepath) : _filepath(filepath) {
-}
-
-FileManager::~FileManager()
-{
-}
+FileManager::FileManager(std::string filepath) : _filepath(filepath) {}
 
 std::vector<std::string> FileManager::readFile() {
-    std::vector<std::string> content;
-
     if (!this->_hasValidName())
         throw FileManager::Error("Invalid filepath: [" + this->_filepath + std::string("] is too short or does not end with '.nts'"));
     if (!this->_isInteractable())
         throw FileManager::Error("Invalid permissions: [" + this->_filepath + std::string("] can not be opened or read."));
-
-    std::string line;
-    this->_file.open(this->_filepath, std::ios::out);
-    while (std::getline(this->_file, line)) {
-        if (line.compare(0, 1, "#") == 0)
-            continue;
-        if (line == "")
-            continue;
-        content.push_back(line);
-    }
-    this->_file.close();
-    return (content);
+    return (this->_getContent());
 }
 
 bool FileManager::_hasValidName() {
@@ -45,4 +27,21 @@ bool FileManager::_hasValidName() {
 
 bool FileManager::_isInteractable() {
     return (access(this->_filepath.c_str(), R_OK) == 0);
+}
+
+std::vector<std::string> FileManager::_getContent() {
+    std::vector<std::string> content;
+
+    std::string line;
+    this->_file.open(this->_filepath, std::ios::out);
+    while (std::getline(this->_file, line)) {
+        if (line.compare(0, 1, "#") == 0)
+            continue;
+        if (line == "")
+            continue;
+        line = line.substr(0, line.find('#'));
+        content.push_back(line);
+    }
+    this->_file.close();
+    return (content);
 }

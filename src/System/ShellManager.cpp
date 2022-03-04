@@ -27,8 +27,10 @@ void ShellManager::runShell() {
         return;
     try {
         this->parseCommand(line);
-    } catch (ShellManager::Error &error) {
+    } catch (ShellManager::Error const &error) {
         std::cerr << error.what() << std::endl;
+    } catch (ShellManager::Exit const &ignored) {
+        return;
     }
     runShell();
 }
