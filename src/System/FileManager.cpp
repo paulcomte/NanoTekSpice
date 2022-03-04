@@ -7,7 +7,7 @@
 
 #include "FileManager.hpp"
 
-FileManager::FileManager(std::string filepath) : _filepath(filepath) {}
+FileManager::FileManager(std::string const filepath) : _filepath(filepath) {}
 
 std::vector<std::string> FileManager::readFile() {
     if (!this->_hasValidName())
@@ -17,7 +17,7 @@ std::vector<std::string> FileManager::readFile() {
     return (this->_getContent());
 }
 
-bool FileManager::_hasValidName() {
+bool FileManager::_hasValidName() const {
     if (this->_filepath.size() <= 4)
         return (false);
     if(this->_filepath.compare(this->_filepath.size() - 4, 4, ".nts"))
@@ -25,8 +25,13 @@ bool FileManager::_hasValidName() {
     return (true);
 }
 
-bool FileManager::_isInteractable() {
+bool FileManager::_isInteractable() const {
     return (access(this->_filepath.c_str(), R_OK) == 0);
+}
+
+std::string FileManager::removeRemnantSpaces(std::string &string) const {
+    std::regex regexp(" +");
+    return (regex_replace(string, regexp, " "));
 }
 
 std::vector<std::string> FileManager::_getContent() {
@@ -40,7 +45,7 @@ std::vector<std::string> FileManager::_getContent() {
         if (line == "")
             continue;
         line = line.substr(0, line.find('#'));
-        content.push_back(line);
+        content.push_back(removeRemnantSpaces(line));
     }
     this->_file.close();
     return (content);

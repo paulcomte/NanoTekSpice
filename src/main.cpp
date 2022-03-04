@@ -27,6 +27,9 @@ int main(int argc, char **argv)
         return (84);
     }
 
+    // for (std::string string : fileContent)
+    //     std::cout << "[" << string << "]" << std::endl;
+
     ShellManager shell;
     shell.runShell();
     return (0);

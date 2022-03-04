@@ -12,10 +12,11 @@
     #include <sstream>
     #include <unistd.h>
     #include <vector>
+    #include <regex>
 
 class FileManager {
     public:
-        FileManager(std::string filepath);
+        FileManager(std::string const filepath);
         ~FileManager() {}
 
         std::vector<std::string> readFile();
@@ -34,11 +35,12 @@ class FileManager {
         };
 
     private:
-        std::string _filepath;
+        std::string const _filepath;
         std::ifstream _file;
-        bool _hasValidName();
-        bool _isInteractable();
+        bool _hasValidName() const;
+        bool _isInteractable() const;
         std::vector<std::string> _getContent();
+        std::string removeRemnantSpaces(std::string &string) const;
 };
 
 #endif /* !FILEMANAGER_HPP_ */
