@@ -29,12 +29,5 @@ int main(int argc, char **argv)
 
     ShellManager shell;
     shell.runShell();
-    std::ifstream file(argv[1]);
-
-    if (!file.is_open()) {
-        std::cerr << "nanotekspice: " << argv[1] << ": No such file or directory" << std::endl;
-        return (84);
-    }
-    file.close();
     return (0);
 }
