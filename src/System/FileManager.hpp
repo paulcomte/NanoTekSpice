@@ -11,13 +11,14 @@
     #include <fstream>
     #include <sstream>
     #include <unistd.h>
+    #include <vector>
 
 class FileManager {
     public:
         FileManager(std::string filepath);
         ~FileManager();
 
-        std::string readFile();
+        std::vector<std::string> readFile();
 
         class Error : public std::exception {
             public:
@@ -34,7 +35,7 @@ class FileManager {
 
     private:
         std::string _filepath;
-        std::ofstream _file;
+        std::ifstream _file;
         bool _hasValidName();
         bool _isInteractable();
 };

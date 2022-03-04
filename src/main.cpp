@@ -18,7 +18,7 @@ int main(int argc, char **argv)
         return (84);
     }
     FileManager fileManager(argv[1]);
-    std::string fileContent;
+    std::vector<std::string> fileContent;
 
     try {
         fileContent = fileManager.readFile();
@@ -26,6 +26,9 @@ int main(int argc, char **argv)
         std::cerr << error.what() << std::endl;
         return (84);
     }
+
+    for (std::string string : fileContent)
+        std::cout << "[" << string << "]" << std::endl;
 
     ShellManager shell;
     shell.runShell();
