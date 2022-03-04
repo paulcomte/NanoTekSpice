@@ -8,16 +8,35 @@
 #ifndef FILEMANAGER_HPP_
     #define FILEMANAGER_HPP_
     #include <string>
+    #include <fstream>
+    #include <sstream>
+    #include <unistd.h>
 
 class FileManager {
     public:
-        FileManager();
+        FileManager(std::string filepath);
         ~FileManager();
 
-        bool std::
         std::string readFile();
 
+        class Error : public std::exception {
+            public:
+
+                Error(std::string message) : _message(message) {}
+
+                char const *what() const noexcept override {
+                    return (this->_message).c_str();
+                }
+
+            private:
+                std::string const _message;
+        };
+
     private:
+        std::string _filepath;
+        std::ofstream _file;
+        bool _hasValidName();
+        bool _isInteractable();
 };
 
 #endif /* !FILEMANAGER_HPP_ */
