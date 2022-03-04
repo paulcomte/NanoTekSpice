@@ -12,6 +12,7 @@ CFLAGS	= -std=c++20 -Wall -Wextra -Werror
 SRC		= $(wildcard src/*.cpp)
 
 SRC		+= $(wildcard src/*/*.cpp)
+SRC		+= $(wildcard src/*/*/*.cpp)
 
 OBJ 	= $(SRC:.cpp=.o)
 

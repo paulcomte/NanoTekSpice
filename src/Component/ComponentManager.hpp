@@ -9,6 +9,15 @@
     #define COMPONENTMANAGER_HPP_
     #include <string>
     #include <vector>
+    #include <map>
+    #include <memory>
+    #include "Chipsets/IChipset.hpp"
+    #include "Chipsets/Input.hpp"
+    #include "Chipsets/Output.hpp"
+    #include "Chipsets/True.hpp"
+    #include "Chipsets/False.hpp"
+    #include "Chipsets/Clock.hpp"
+    #include "Chipsets/4040.hpp"
 
 class ComponentManager {
     public:
@@ -34,6 +43,7 @@ class ComponentManager {
         std::string _retrieveFileContent();
         std::vector<std::string> _retrieveChipsets();
         std::vector<std::string> _retrieveLinks();
+        std::vector<std::unique_ptr<IChipset>> _createChipsets();
 };
 
 #endif /* !COMPONENTMANAGER_HPP_ */

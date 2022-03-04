@@ -11,7 +11,6 @@
 ComponentManager::ComponentManager(std::vector<std::string> file) : _file(file) {
     if (!this->_isFileValid())
         throw Error("Invalid file:\n[" + this->_retrieveFileContent() + std::string("] chipsets and or links number is invalid"));
-    // TODO add different circuits
 }
 
 bool ComponentManager::_isFileValid() {
@@ -36,7 +35,6 @@ std::string ComponentManager::_retrieveFileContent() {
     }
     return (content);
 }
-
 
 std::vector<std::string> ComponentManager::_retrieveChipsets() {
     std::vector<std::string> chipsets;
@@ -70,4 +68,34 @@ std::vector<std::string> ComponentManager::_retrieveLinks() {
             links.push_back(string);
     }
     return (links);
+}
+
+std::vector<std::unique_ptr<IChipset>> ComponentManager::_createChipsets() {
+    std::vector<std::string> rawChipsets = this->_retrieveChipsets();
+    std::vector<std::unique_ptr<IChipset>> chipsets;
+
+    for (std::string raw : rawChipsets) {
+        std::string type = raw.substr(0, raw.find(" "));
+        std::string name = raw.substr(raw.find(" ") + 1, raw.size());
+        if (raw.find(" ") > raw.size())
+            throw ComponentManager::Error("Invalid syntax: " + std::string("[") + type + std::string(":") + name + std::string("]"));
+        for (std::unique_ptr<IChipset> &chipset : chipsets)
+            if (chipset.get()->getName() == name)
+                throw ComponentManager::Error("Invalid name: " + name + " already exists");
+        if (type == "input")
+            chipsets.push_back(std::unique_ptr<IChipset>(new Input(name)));
+        else if (type == "output")
+            chipsets.push_back(std::unique_ptr<IChipset>(new Output(name)));
+        else if (type == "clock")
+            chipsets.push_back(std::unique_ptr<IChipset>(new Clock(name)));
+        else if (type == "true")
+            chipsets.push_back(std::unique_ptr<IChipset>(new True(name)));
+        else if (type == "false")
+            chipsets.push_back(std::unique_ptr<IChipset>(new False(name)));
+        else if (type == "4040")
+            chipsets.push_back(std::unique_ptr<IChipset>(new False(name)));
+        else
+            throw ComponentManager::Error("Invalid type: " + type + " is not a known type");
+    }
+    return (chipsets);
 }
