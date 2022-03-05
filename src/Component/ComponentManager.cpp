@@ -11,6 +11,8 @@
 ComponentManager::ComponentManager(std::vector<std::string> file) : _file(file) {
     if (!this->_isFileValid())
         throw Error("Invalid file:\n[" + this->_retrieveFileContent() + std::string("] chipsets and or links number is invalid"));
+    std::map<std::string, std::unique_ptr<nts::IComponent>> chipsets = this->_createChipsets();
+    this->_createLinks(chipsets);
 }
 
 bool ComponentManager::_isFileValid() {
@@ -70,32 +72,64 @@ std::vector<std::string> ComponentManager::_retrieveLinks() {
     return (links);
 }
 
-std::vector<std::unique_ptr<IChipset>> ComponentManager::_createChipsets() {
+std::map<std::string, std::unique_ptr<nts::IComponent>> ComponentManager::_createChipsets() {
     std::vector<std::string> rawChipsets = this->_retrieveChipsets();
-    std::vector<std::unique_ptr<IChipset>> chipsets;
+    std::map<std::string, std::unique_ptr<nts::IComponent>> chipsets;
 
     for (std::string raw : rawChipsets) {
         std::string type = raw.substr(0, raw.find(" "));
         std::string name = raw.substr(raw.find(" ") + 1, raw.size());
         if (raw.find(" ") > raw.size())
             throw ComponentManager::Error("Invalid syntax: " + std::string("[") + type + std::string(":") + name + std::string("]"));
-        for (std::unique_ptr<IChipset> &chipset : chipsets)
-            if (chipset.get()->getName() == name)
-                throw ComponentManager::Error("Invalid name: " + name + " already exists");
+        if (chipsets[name] != nullptr)
+            throw ComponentManager::Error("Invalid name: " + name + " already exists");
         if (type == "input")
-            chipsets.push_back(std::unique_ptr<IChipset>(new Input(name)));
+            chipsets[name] = std::unique_ptr<nts::IComponent>(new nts::Input());
         else if (type == "output")
-            chipsets.push_back(std::unique_ptr<IChipset>(new Output(name)));
+            chipsets[name] = std::unique_ptr<nts::IComponent>(new nts::Output());
         else if (type == "clock")
-            chipsets.push_back(std::unique_ptr<IChipset>(new Clock(name)));
+            chipsets[name] = std::unique_ptr<nts::IComponent>(new nts::Clock());
         else if (type == "true")
-            chipsets.push_back(std::unique_ptr<IChipset>(new True(name)));
+            chipsets[name] = std::unique_ptr<nts::IComponent>(new nts::True());
         else if (type == "false")
-            chipsets.push_back(std::unique_ptr<IChipset>(new False(name)));
+            chipsets[name] = std::unique_ptr<nts::IComponent>(new nts::False());
         else if (type == "4040")
-            chipsets.push_back(std::unique_ptr<IChipset>(new False(name)));
+            chipsets[name] = std::unique_ptr<nts::IComponent>(new nts::TWELVE_BITS_COUNTER());
         else
             throw ComponentManager::Error("Invalid type: " + type + " is not a known type");
     }
     return (chipsets);
+}
+
+
+void ComponentManager::_createLinks(std::map<std::string, std::unique_ptr<nts::IComponent>> &chipsets) {
+    std::vector<std::string> rawLinks = this->_retrieveLinks();
+    std::string specialName;
+    std::size_t pin;
+    std::string gateName;
+    std::size_t gatePin;
+
+    for (std::string raw : rawLinks) {
+        std::smatch m;
+        std::regex_search(raw, m, std::regex(".+?(?=:)"));
+        if (m.size() != 1)
+            throw ComponentManager::Error("Unknown name");
+        specialName = m[0];
+        std::regex_search(raw, m, std::regex("(?:.*?[:]+){1}.*?([:0-9.]+)"));
+        if (m.size() != 2)
+            throw ComponentManager::Error("Unknown pin");
+        pin = std::atol(((std::string) m[1]).c_str());
+        std::regex_search(raw, m, std::regex("(?= ).+?(?=:)"));
+        if (m.size() != 1)
+            throw ComponentManager::Error("Unknown gate name");
+        gateName = ((std::string) m[0]).substr(1);
+        std::regex_search(raw, m, std::regex("(?:.*?[:]+){2}.*?([:0-9.]+)"));
+        if (m.size() != 2)
+            throw ComponentManager::Error("Unknown gate pin");
+        gatePin = std::atol(((std::string) m[1]).c_str());
+        if (chipsets[gateName] == nullptr || chipsets[specialName] == nullptr)
+            throw ComponentManager::Error("Component name unknown");
+        chipsets[gateName].get()->setLink(gatePin, *chipsets[specialName].get(), pin);
+        chipsets[specialName].get()->setLink(pin, *chipsets[gateName].get(), gatePin);
+    }
 }

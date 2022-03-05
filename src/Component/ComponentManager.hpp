@@ -11,13 +11,14 @@
     #include <vector>
     #include <map>
     #include <memory>
-    #include "Chipsets/IChipset.hpp"
-    #include "Chipsets/Input.hpp"
-    #include "Chipsets/Output.hpp"
-    #include "Chipsets/True.hpp"
-    #include "Chipsets/False.hpp"
-    #include "Chipsets/Clock.hpp"
+    #include <regex>
+    #include "IComponent.hpp"
     #include "Chipsets/4040.hpp"
+    #include "Special/Clock.hpp"
+    #include "Special/Output.hpp"
+    #include "Special/Input.hpp"
+    #include "Special/True.hpp"
+    #include "Special/False.hpp"
 
 class ComponentManager {
     public:
@@ -43,7 +44,8 @@ class ComponentManager {
         std::string _retrieveFileContent();
         std::vector<std::string> _retrieveChipsets();
         std::vector<std::string> _retrieveLinks();
-        std::vector<std::unique_ptr<IChipset>> _createChipsets();
+        std::map<std::string, std::unique_ptr<nts::IComponent>> _createChipsets();
+        void _createLinks(std::map<std::string, std::unique_ptr<nts::IComponent>> &chipsets);
 };
 
 #endif /* !COMPONENTMANAGER_HPP_ */
