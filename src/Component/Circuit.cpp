@@ -52,7 +52,20 @@ namespace nts {
     }
 
     std::string Circuit::getFormatedOutputs() const {
-        return ("");
+        std::vector<std::string> outputs;
+        std::string result;
+        for (auto const &v : this->getComponents()) {
+            nts::Output *output = dynamic_cast<nts::Output*>(this->getComponents()[v.first].get());
+            if (output == nullptr)
+                    continue;
+            outputs.push_back(v.first + std::string(": ") + this->_getStateName(output->getValue()));
+        }
+        std::sort(outputs.begin(), outputs.end());
+        for (std::string str : outputs) {
+            result += "\n";
+            result += "\t" + str;
+        }
+        return (result);
     }
 
     std::string Circuit::_getStateName(Tristate value) const {
