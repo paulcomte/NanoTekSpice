@@ -10,6 +10,7 @@
 namespace nts {
 
     Output::Output() {
+        this->_state = Tristate::UNDEFINED;
     }
 
     Output::~Output() {
@@ -33,6 +34,10 @@ namespace nts {
 
     void Output::dump() const {
 
+    }
+
+    Tristate Output::getValue() const {
+        return (this->_state);
     }
 
 }

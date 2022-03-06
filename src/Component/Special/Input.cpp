@@ -11,7 +11,7 @@
 namespace nts {
 
     Input::Input() {
-
+        this->_state = Tristate::UNDEFINED;
     }
 
     Input::~Input() {
@@ -20,16 +20,16 @@ namespace nts {
 
     void Input::setValue(std::string value) {
         if (value == "U")
-            this->_state = Tristate::TRUE;
+            this->_state = Tristate::UNDEFINED;
         else if (value == "0")
             this->_state = Tristate::FALSE;
         else if (value == "1")
-            this->_state = Tristate::UNDEFINED;
+            this->_state = Tristate::TRUE;
         else
             throw ShellManager::Error("[" + value + "] is not a known input state!");
     }
 
-    Tristate Input::getValue() {
+    Tristate Input::getValue() const {
         return (this->_state);
     }
 

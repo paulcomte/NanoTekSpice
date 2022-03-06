@@ -23,7 +23,7 @@ namespace nts {
             void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin) override;
             void dump() const override;
             void setValue(std::string value);
-            Tristate getValue();
+            Tristate getValue() const;
 
         private:
             Link _pins[1];

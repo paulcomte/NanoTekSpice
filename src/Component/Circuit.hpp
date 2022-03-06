@@ -19,15 +19,16 @@ namespace nts {
             Circuit(std::map<std::string, std::shared_ptr<nts::IComponent>> components = {});
             ~Circuit();
 
-            std::map<std::string, std::shared_ptr<nts::IComponent>> getComponents();
-            size_t getTicks();
+            std::map<std::string, std::shared_ptr<nts::IComponent>> getComponents() const;
+            size_t getTicks() const;
 
-            std::string getFormatedInputs();
+            std::string getFormatedInputs() const;
 
-            std::string getFormatedOutputs();
+            std::string getFormatedOutputs() const;
 
         private:
             std::map<std::string, std::shared_ptr<nts::IComponent>> _components;
+            std::string _getStateName(Tristate value) const;
             size_t _ticks;
     };
 
