@@ -10,7 +10,7 @@
 #include <iostream>
 #include <fstream>
 
-ShellManager::ShellManager(ComponentManager componentManager) : _componentManager(componentManager) {
+ShellManager::ShellManager(ComponentManager &componentManager) : _componentManager(componentManager) {
     this->_tty = _setTty();
 
     this->_commands.push_back(std::unique_ptr<ICommand>(new ICommand(Commands::display, std::string("display"))));
@@ -41,7 +41,7 @@ void ShellManager::parseCommand(std::string commandName)
 
     if (command == nullptr)
         throw ShellManager::Error("Unknown command" + std::string(": ") + commandName + " >> does not exist!");
-    command->execute();
+    command->execute(*this);
 }
 
 bool ShellManager::isTty() {
@@ -60,4 +60,8 @@ bool ShellManager::_setTty(void) {
     if (isatty(0))
         return (true);
     return (false);
+}
+
+nts::Circuit ShellManager::getCircuit() {
+    return (this->_componentManager.getCircuit());
 }

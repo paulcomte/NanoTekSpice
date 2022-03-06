@@ -13,6 +13,7 @@
     #include <memory>
     #include <regex>
     #include "IComponent.hpp"
+    #include "Circuit.hpp"
     #include "Chipsets/4040.hpp"
     #include "Special/Clock.hpp"
     #include "Special/Output.hpp"
@@ -24,6 +25,8 @@ class ComponentManager {
     public:
         ComponentManager(std::vector<std::string> file);
         ~ComponentManager() {}
+
+        nts::Circuit getCircuit();
 
         class Error : public std::exception {
             public:
@@ -39,13 +42,14 @@ class ComponentManager {
         };
 
     private:
+        nts::Circuit _circuit;
         std::vector<std::string> _file;
         bool _isFileValid();
         std::string _retrieveFileContent();
         std::vector<std::string> _retrieveChipsets();
         std::vector<std::string> _retrieveLinks();
-        std::map<std::string, std::unique_ptr<nts::IComponent>> _createChipsets();
-        void _createLinks(std::map<std::string, std::unique_ptr<nts::IComponent>> &chipsets);
+        std::map<std::string, std::shared_ptr<nts::IComponent>> _createChipsets();
+        std::map<std::string, std::shared_ptr<nts::IComponent>> _createLinks(std::map<std::string, std::shared_ptr<nts::IComponent>> &chipsets);
 };
 
 #endif /* !COMPONENTMANAGER_HPP_ */

@@ -8,10 +8,12 @@
 #ifndef COMMANDS_HPP_
     #define COMMANDS_HPP_
 
+class ShellManager;
+
 namespace Commands {
-    void display();
-    void exit();
-    void simulate();
+    void display(ShellManager &shellmanager);
+    void exit(ShellManager &shellmanager);
+    void simulate(ShellManager &shellmanager);
 };
 
 #endif /* !COMMANDS_HPP_ */

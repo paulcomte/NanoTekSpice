@@ -11,8 +11,8 @@
 ComponentManager::ComponentManager(std::vector<std::string> file) : _file(file) {
     if (!this->_isFileValid())
         throw Error("Invalid file:\n[" + this->_retrieveFileContent() + std::string("] chipsets and or links number is invalid"));
-    std::map<std::string, std::unique_ptr<nts::IComponent>> chipsets = this->_createChipsets();
-    this->_createLinks(chipsets);
+    std::map<std::string, std::shared_ptr<nts::IComponent>> _components = this->_createChipsets();
+    this->_circuit = nts::Circuit(this->_createLinks(_components));
 }
 
 bool ComponentManager::_isFileValid() {
@@ -72,9 +72,9 @@ std::vector<std::string> ComponentManager::_retrieveLinks() {
     return (links);
 }
 
-std::map<std::string, std::unique_ptr<nts::IComponent>> ComponentManager::_createChipsets() {
+std::map<std::string, std::shared_ptr<nts::IComponent>> ComponentManager::_createChipsets() {
     std::vector<std::string> rawChipsets = this->_retrieveChipsets();
-    std::map<std::string, std::unique_ptr<nts::IComponent>> chipsets;
+    std::map<std::string, std::shared_ptr<nts::IComponent>> chipsets;
 
     for (std::string raw : rawChipsets) {
         std::string type = raw.substr(0, raw.find(" "));
@@ -101,8 +101,7 @@ std::map<std::string, std::unique_ptr<nts::IComponent>> ComponentManager::_creat
     return (chipsets);
 }
 
-
-void ComponentManager::_createLinks(std::map<std::string, std::unique_ptr<nts::IComponent>> &chipsets) {
+std::map<std::string, std::shared_ptr<nts::IComponent>> ComponentManager::_createLinks(std::map<std::string, std::shared_ptr<nts::IComponent>> &chipsets) {
     std::vector<std::string> rawLinks = this->_retrieveLinks();
     std::string specialName;
     std::size_t pin;
@@ -132,4 +131,9 @@ void ComponentManager::_createLinks(std::map<std::string, std::unique_ptr<nts::I
         chipsets[gateName].get()->setLink(gatePin, *chipsets[specialName].get(), pin);
         chipsets[specialName].get()->setLink(pin, *chipsets[gateName].get(), gatePin);
     }
+    return (chipsets);
+}
+
+nts::Circuit ComponentManager::getCircuit() {
+    return (this->_circuit);
 }

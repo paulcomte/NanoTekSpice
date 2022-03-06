@@ -16,7 +16,7 @@
 
 class ShellManager {
     public:
-        ShellManager(ComponentManager componentManager);
+        ShellManager(ComponentManager &componentManager);
         ~ShellManager() {}
         bool isTty();
         void parseCommand(std::string command);
@@ -47,6 +47,8 @@ class ShellManager {
             private:
                 std::string const _message;
         };
+
+        nts::Circuit getCircuit();
 
     private:
         ComponentManager _componentManager;

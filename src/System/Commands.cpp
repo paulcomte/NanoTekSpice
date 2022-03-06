@@ -11,21 +11,23 @@
 
 namespace Commands {
 
-    void display() {
+    void display(ShellManager &shellManager) {
+        (void) shellManager;
         std::cout
-            << "tick:" << std::endl
+            << "tick: " << shellManager.getCircuit().getTicks() << std::endl
             << "input(s):"
             << std::endl
             << "output(s):"
             << std::endl;
     }
 
-    void exit() {
+    void exit(ShellManager &shellManager) {
+        (void) shellManager;
         throw ShellManager::Exit("");
     }
 
-    void simulate() {
-        
+    void simulate(ShellManager &shellManager) {
+        (void) shellManager;
     }
 
 };
