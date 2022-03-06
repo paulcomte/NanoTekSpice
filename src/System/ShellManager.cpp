@@ -53,7 +53,7 @@ bool ShellManager::_parseInput(std::string command) {
         return (false);
     if (this->getCircuit().getComponents()[component] == nullptr)
         throw ShellManager::Error("[" + component + "] is not a known component!");
-    nts::Input *input = static_cast<nts::Input*>(this->getCircuit().getComponents()[component].get());
+    nts::Input *input = dynamic_cast<nts::Input*>(this->getCircuit().getComponents()[component].get());
     if (input == nullptr)
         throw ShellManager::Error("[" + component + "] is not a known input!");
     input->setValue((nts::Tristate) value);
