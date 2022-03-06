@@ -40,8 +40,9 @@ namespace nts {
     }
 
     Tristate Clock::compute(std::size_t pin) {
-        (void) pin;
-        return (FALSE);
+        if (pin == 0)
+            return (UNDEFINED);
+        return (this->_state);
     }
 
     void Clock::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin) {

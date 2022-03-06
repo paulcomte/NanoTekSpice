@@ -10,7 +10,6 @@
 namespace nts {
 
     Output::Output() {
-        this->_state = Tristate::UNDEFINED;
     }
 
     Output::~Output() {
@@ -19,11 +18,19 @@ namespace nts {
 
     void Output::simulate(std::size_t tick) {
         (void) tick;
+        compute(1);
     }
 
     Tristate Output::compute(std::size_t pin) {
-        (void) pin;
-        return (FALSE);
+        if (pin == 0)
+            return (UNDEFINED);
+        if (pin == 1) {
+            if (this->_pins->getComponent() == nullptr)
+                return (this->_state);
+            this->_state = this->_pins->getComponent()->compute(1);
+            return (this->_state);
+        }
+        return (UNDEFINED);
     }
 
     void Output::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin) {

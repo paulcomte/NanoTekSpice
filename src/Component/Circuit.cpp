@@ -79,7 +79,7 @@ namespace nts {
     }
 
     void Circuit::simulate() {
-        this->_ticks += 1;
+        this->_ticks = 1;
         for (auto const &v : this->getComponents())
             v.second.get()->simulate(1);
     }

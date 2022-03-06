@@ -12,7 +12,6 @@
 namespace Commands {
 
     void display(ShellManager &shellManager) {
-        (void) shellManager;
         std::cout
             << "tick: " << shellManager.getCircuit().getTicks() << std::endl
             << "input(s):" << shellManager.getCircuit().getFormatedInputs()
