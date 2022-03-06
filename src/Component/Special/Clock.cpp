@@ -6,6 +6,7 @@
 */
 
 #include "Clock.hpp"
+#include "../../System/ShellManager.hpp"
 
 namespace nts {
 
@@ -14,6 +15,21 @@ namespace nts {
 
     Clock::~Clock() {
 
+    }
+
+    void Clock::setValue(std::string value) {
+        if (value == "U")
+            this->_state = Tristate::TRUE;
+        else if (value == "0")
+            this->_state = Tristate::FALSE;
+        else if (value == "1")
+            this->_state = Tristate::UNDEFINED;
+        else
+            throw ShellManager::Error("[" + value + "] is not a known clock state!");
+    }
+
+    Tristate Clock::getValue() {
+        return (this->_state);
     }
 
     void Clock::simulate(std::size_t tick) {

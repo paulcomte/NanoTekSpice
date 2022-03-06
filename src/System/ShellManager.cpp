@@ -38,25 +38,31 @@ void ShellManager::runShell() {
 
 bool ShellManager::_parseInput(std::string command) {
     std::string component;
-    size_t value;
+    std::string value;
 
     std::smatch m;
     std::regex_search(command, m, std::regex(".+?(?==)"));
     if (m.size() != 1)
         return (false);
     component = m[0];
-    std::regex_search(command, m, std::regex("(?:.*?[=]+){0}.*?([0-9.]+)"));
-    if (m.size() != 2)
+    if (command.size() < component.size()+2)
         return (false);
-    value = atol(((std::string) m[1]).c_str());
-    if (command != component + "=" + std::to_string(value))
+    value = command.substr(component.size()+1);
+    if (command != component + "=" + value)
         return (false);
+
     if (this->getCircuit().getComponents()[component] == nullptr)
         throw ShellManager::Error("[" + component + "] is not a known component!");
+
     nts::Input *input = dynamic_cast<nts::Input*>(this->getCircuit().getComponents()[component].get());
-    if (input == nullptr)
-        throw ShellManager::Error("[" + component + "] is not a known input!");
-    input->setValue((nts::Tristate) value);
+    if (input == nullptr) {
+        nts::Clock *clock = dynamic_cast<nts::Clock*>(this->getCircuit().getComponents()[component].get());
+        if (clock == nullptr)
+            throw ShellManager::Error("[" + component + "] is not an input/clock!");
+        clock->setValue(value);
+        return (true);
+    }
+    input->setValue(value);
     return (true);
 }
 

@@ -6,18 +6,31 @@
 */
 
 #include "Input.hpp"
+#include "../../System/ShellManager.hpp"
 
 namespace nts {
 
     Input::Input() {
+
     }
 
     Input::~Input() {
 
     }
 
-    void Input::setValue(Tristate state) {
-        this->_state = state;
+    void Input::setValue(std::string value) {
+        if (value == "U")
+            this->_state = Tristate::TRUE;
+        else if (value == "0")
+            this->_state = Tristate::FALSE;
+        else if (value == "1")
+            this->_state = Tristate::UNDEFINED;
+        else
+            throw ShellManager::Error("[" + value + "] is not a known input state!");
+    }
+
+    Tristate Input::getValue() {
+        return (this->_state);
     }
 
     void Input::simulate(std::size_t tick) {
