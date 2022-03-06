@@ -25,11 +25,11 @@ namespace nts {
     }
 
 
-    std::string getFormatedInputs() {
+    std::string Circuit::getFormatedInputs() {
         return ("");
     }
 
-    std::string getFormatedOutputs() {
+    std::string Circuit::getFormatedOutputs() {
         return ("");
     }
 
