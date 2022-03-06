@@ -26,11 +26,11 @@ namespace nts {
 
 
     std::string getFormatedInputs() {
-
+        return ("");
     }
 
     std::string getFormatedOutputs() {
-        
+        return ("");
     }
 
 }
