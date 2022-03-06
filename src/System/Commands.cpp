@@ -27,7 +27,7 @@ namespace Commands {
     }
 
     void simulate(ShellManager &shellManager) {
-        (void) shellManager;
+        shellManager.getCircuit().simulate();
     }
 
 };

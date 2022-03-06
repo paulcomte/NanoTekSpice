@@ -12,6 +12,7 @@ namespace nts {
 
     Clock::Clock() {
         this->_state = Tristate::UNDEFINED;
+        this->_newState = Tristate::UNDEFINED;
     }
 
     Clock::~Clock() {
@@ -20,11 +21,11 @@ namespace nts {
 
     void Clock::setValue(std::string value) {
         if (value == "U")
-            this->_state = Tristate::UNDEFINED;
+            this->_newState = Tristate::UNDEFINED;
         else if (value == "0")
-            this->_state = Tristate::FALSE;
+            this->_newState = Tristate::FALSE;
         else if (value == "1")
-            this->_state = Tristate::TRUE;
+            this->_newState = Tristate::TRUE;
         else
             throw ShellManager::Error("[" + value + "] is not a known clock state!");
     }
@@ -35,6 +36,7 @@ namespace nts {
 
     void Clock::simulate(std::size_t tick) {
         (void) tick;
+        this->_state = this->_newState;
     }
 
     Tristate Clock::compute(std::size_t pin) {

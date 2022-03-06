@@ -12,6 +12,7 @@ namespace nts {
 
     Input::Input() {
         this->_state = Tristate::UNDEFINED;
+        this->_newState = Tristate::UNDEFINED;
     }
 
     Input::~Input() {
@@ -20,11 +21,11 @@ namespace nts {
 
     void Input::setValue(std::string value) {
         if (value == "U")
-            this->_state = Tristate::UNDEFINED;
+            this->_newState = Tristate::UNDEFINED;
         else if (value == "0")
-            this->_state = Tristate::FALSE;
+            this->_newState = Tristate::FALSE;
         else if (value == "1")
-            this->_state = Tristate::TRUE;
+            this->_newState = Tristate::TRUE;
         else
             throw ShellManager::Error("[" + value + "] is not a known input state!");
     }
@@ -35,6 +36,7 @@ namespace nts {
 
     void Input::simulate(std::size_t tick) {
         (void) tick;
+        this->_state = this->_newState;
     }
 
     Tristate Input::compute(std::size_t pin) {

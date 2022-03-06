@@ -28,6 +28,7 @@ namespace nts {
         private:
             Link _pins[1];
             Tristate _state;
+            Tristate _newState;
     };
 
 }

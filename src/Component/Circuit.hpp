@@ -26,6 +26,8 @@ namespace nts {
 
             std::string getFormatedOutputs() const;
 
+            void simulate();
+
         private:
             std::map<std::string, std::shared_ptr<nts::IComponent>> _components;
             std::string _getStateName(Tristate value) const;

@@ -46,7 +46,7 @@ namespace nts {
         std::sort(inputs.begin(), inputs.end());
         for (std::string str : inputs) {
             result += "\n";
-            result += "\t" + str;
+            result += "  " + str;
         }
         return (result);
     }
@@ -63,7 +63,7 @@ namespace nts {
         std::sort(outputs.begin(), outputs.end());
         for (std::string str : outputs) {
             result += "\n";
-            result += "\t" + str;
+            result += "  " + str;
         }
         return (result);
     }
@@ -76,6 +76,12 @@ namespace nts {
         if (value == FALSE)
             return ("0");
         return ("U");
+    }
+
+    void Circuit::simulate() {
+        this->_ticks += 1;
+        for (auto const &v : this->getComponents())
+            v.second.get()->simulate(1);
     }
 
 }
