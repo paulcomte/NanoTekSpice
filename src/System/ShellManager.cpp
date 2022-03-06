@@ -26,7 +26,8 @@ void ShellManager::runShell() {
     if (!(std::getline(std::cin, line)))
         return;
     try {
-        this->parseCommand(line);
+        if (!this->_parseInput(line))
+            this->_parseCommand(line);
     } catch (ShellManager::Error const &error) {
         std::cerr << "SHELL MANAGER ERROR | " << error.what() << std::endl;
     } catch (ShellManager::Exit const &ignored) {
@@ -35,7 +36,31 @@ void ShellManager::runShell() {
     runShell();
 }
 
-void ShellManager::parseCommand(std::string commandName)
+bool ShellManager::_parseInput(std::string command) {
+    std::string component;
+    size_t value;
+
+    std::smatch m;
+    std::regex_search(command, m, std::regex(".+?(?==)"));
+    if (m.size() != 1)
+        return (false);
+    component = m[0];
+    std::regex_search(command, m, std::regex("(?:.*?[=]+){0}.*?([0-9.]+)"));
+    if (m.size() != 2)
+        return (false);
+    value = atol(((std::string) m[1]).c_str());
+    if (command != component + "=" + std::to_string(value))
+        return (false);
+    if (this->getCircuit().getComponents()[component] == nullptr)
+        throw ShellManager::Error("[" + component + "] is not a known component!");
+    nts::Input *input = static_cast<nts::Input*>(this->getCircuit().getComponents()[component].get());
+    if (input == nullptr)
+        throw ShellManager::Error("[" + component + "] is not a known input!");
+    input->setValue((nts::Tristate) value);
+    return (true);
+}
+
+void ShellManager::_parseCommand(std::string commandName)
 {
     ICommand *command = this->_retrieveCommand(commandName);
 

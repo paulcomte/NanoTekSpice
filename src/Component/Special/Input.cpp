@@ -16,6 +16,10 @@ namespace nts {
 
     }
 
+    void Input::setValue(Tristate state) {
+        this->_state = state;
+    }
+
     void Input::simulate(std::size_t tick) {
         (void) tick;
     }

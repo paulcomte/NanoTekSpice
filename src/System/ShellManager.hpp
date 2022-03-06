@@ -11,6 +11,8 @@
     #include <unistd.h>
     #include <vector>
     #include <memory>
+    #include <any>
+    #include <utility>
     #include "ICommand.hpp"
     #include "../Component/ComponentManager.hpp"
 
@@ -19,7 +21,6 @@ class ShellManager {
         ShellManager(ComponentManager &componentManager);
         ~ShellManager() {}
         bool isTty();
-        void parseCommand(std::string command);
         void runShell();
 
         class Error : public std::exception {
@@ -56,6 +57,8 @@ class ShellManager {
         bool _tty;
         std::vector<std::unique_ptr<ICommand>> _commands;
         ICommand *_retrieveCommand(std::string commandName);
+        void _parseCommand(std::string command);
+        bool _parseInput(std::string command);
 };
 
 #endif /* !SHELLMANAGER_HPP_ */

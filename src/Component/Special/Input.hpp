@@ -22,9 +22,11 @@ namespace nts {
             nts::Tristate compute(std::size_t pin) override;
             void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin) override;
             void dump() const override;
+            void setValue(Tristate state);
 
         private:
             Link _pins[1];
+            Tristate _state;
     };
 
 }
