@@ -13,7 +13,7 @@ namespace Commands {
 
     void display(ShellManager &shellManager) {
         std::cout
-            << "tick: " << shellManager.getCircuit().getTicks() << std::endl
+            << "tick: " << shellManager.getTicks() << std::endl
             << "input(s):" << shellManager.getCircuit().getFormatedInputs()
             << std::endl
             << "output(s):" << shellManager.getCircuit().getFormatedOutputs()
@@ -27,6 +27,7 @@ namespace Commands {
 
     void simulate(ShellManager &shellManager) {
         shellManager.getCircuit().simulate();
+        shellManager.addTick();
     }
 
 };

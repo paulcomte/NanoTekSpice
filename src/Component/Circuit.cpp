@@ -13,15 +13,9 @@
 
 namespace nts {
 
-    Circuit::Circuit(std::map<std::string, std::shared_ptr<nts::IComponent>> components) : _components(components) {
-        this->_ticks = 0;
-    }
+    Circuit::Circuit(std::map<std::string, std::shared_ptr<nts::IComponent>> components) : _components(components) {}
 
     Circuit::~Circuit() {
-    }
-
-    size_t Circuit::getTicks() const {
-        return (this->_ticks);
     }
 
     std::map<std::string, std::shared_ptr<nts::IComponent>> Circuit::getComponents() const {
@@ -79,7 +73,6 @@ namespace nts {
     }
 
     void Circuit::simulate() {
-        this->_ticks += 1;
         for (auto const &v : this->getComponents())
             v.second.get()->simulate(1);
     }

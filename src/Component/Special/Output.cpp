@@ -10,6 +10,7 @@
 namespace nts {
 
     Output::Output() {
+        this->_state = Tristate::UNDEFINED;
     }
 
     Output::~Output() {

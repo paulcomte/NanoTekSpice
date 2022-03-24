@@ -20,7 +20,6 @@ namespace nts {
             ~Circuit();
 
             std::map<std::string, std::shared_ptr<nts::IComponent>> getComponents() const;
-            size_t getTicks() const;
 
             std::string getFormatedInputs() const;
 
@@ -31,7 +30,6 @@ namespace nts {
         private:
             std::map<std::string, std::shared_ptr<nts::IComponent>> _components;
             std::string _getStateName(Tristate value) const;
-            size_t _ticks;
     };
 
 }

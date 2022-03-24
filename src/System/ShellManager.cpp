@@ -12,6 +12,7 @@
 
 ShellManager::ShellManager(ComponentManager &componentManager) : _componentManager(componentManager) {
     this->_tty = _setTty();
+    this->_ticks = 0;
 
     this->_commands.push_back(std::unique_ptr<ICommand>(new ICommand(Commands::display, std::string("display"))));
     this->_commands.push_back(std::unique_ptr<ICommand>(new ICommand(Commands::exit, std::string("exit"))));
@@ -95,4 +96,12 @@ bool ShellManager::_setTty(void) {
 
 nts::Circuit ShellManager::getCircuit() {
     return (this->_componentManager.getCircuit());
+}
+
+size_t ShellManager::getTicks() const {
+    return (this->_ticks);
+}
+
+void ShellManager::addTick() {
+    this->_ticks += 1;
 }

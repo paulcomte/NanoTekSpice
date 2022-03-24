@@ -50,6 +50,8 @@ class ShellManager {
         };
 
         nts::Circuit getCircuit();
+        size_t getTicks() const;
+        void addTick();
 
     private:
         ComponentManager _componentManager;
@@ -59,6 +61,7 @@ class ShellManager {
         ICommand *_retrieveCommand(std::string commandName);
         void _parseCommand(std::string command);
         bool _parseInput(std::string command);
+        size_t _ticks;
 };
 
 #endif /* !SHELLMANAGER_HPP_ */
