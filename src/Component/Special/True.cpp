@@ -22,7 +22,7 @@ namespace nts {
 
     Tristate True::compute(std::size_t pin) {
         (void) pin;
-        return (FALSE);
+        return (TRUE);
     }
 
     void True::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin) {

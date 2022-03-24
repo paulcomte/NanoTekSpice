@@ -36,6 +36,13 @@ namespace nts {
 
     void Clock::simulate(std::size_t tick) {
         (void) tick;
+        if (this->_newState != this->_state) {
+            this->_state = this->_newState;
+            return;
+        }
+        if (this->_state == Tristate::UNDEFINED)
+            return;
+        this->_newState = this->_state == Tristate::FALSE ? Tristate::TRUE : Tristate::FALSE;
         this->_state = this->_newState;
     }
 

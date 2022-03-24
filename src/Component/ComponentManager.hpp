@@ -12,14 +12,17 @@
     #include <map>
     #include <memory>
     #include <regex>
-    #include "IComponent.hpp"
     #include "Circuit.hpp"
     #include "Chipsets/4040.hpp"
-    #include "Special/Clock.hpp"
-    #include "Special/Output.hpp"
     #include "Special/Input.hpp"
+    #include "Special/Clock.hpp"
     #include "Special/True.hpp"
     #include "Special/False.hpp"
+    #include "Special/Output.hpp"
+
+namespace nts {
+    class Circuit;
+}
 
 class ComponentManager {
     public:

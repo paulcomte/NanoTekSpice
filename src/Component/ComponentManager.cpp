@@ -84,17 +84,17 @@ std::map<std::string, std::shared_ptr<nts::IComponent>> ComponentManager::_creat
         if (chipsets[name] != nullptr)
             throw ComponentManager::Error("Invalid name: " + name + " already exists");
         if (type == "input")
-            chipsets[name] = std::unique_ptr<nts::IComponent>(new nts::Input());
+            chipsets[name] = std::unique_ptr<nts::Input>(new nts::Input());
         else if (type == "output")
-            chipsets[name] = std::unique_ptr<nts::IComponent>(new nts::Output());
+            chipsets[name] = std::unique_ptr<nts::Output>(new nts::Output());
         else if (type == "clock")
-            chipsets[name] = std::unique_ptr<nts::IComponent>(new nts::Clock());
+            chipsets[name] = std::unique_ptr<nts::Clock>(new nts::Clock());
         else if (type == "true")
-            chipsets[name] = std::unique_ptr<nts::IComponent>(new nts::True());
+            chipsets[name] = std::unique_ptr<nts::True>(new nts::True());
         else if (type == "false")
-            chipsets[name] = std::unique_ptr<nts::IComponent>(new nts::False());
+            chipsets[name] = std::unique_ptr<nts::False>(new nts::False());
         else if (type == "4040")
-            chipsets[name] = std::unique_ptr<nts::IComponent>(new nts::TWELVE_BITS_COUNTER());
+            chipsets[name] = std::unique_ptr<nts::TWELVE_BITS_COUNTER>(new nts::TWELVE_BITS_COUNTER());
         else
             throw ComponentManager::Error("Invalid type: " + type + " is not a known type");
     }

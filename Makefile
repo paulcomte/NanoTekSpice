@@ -7,7 +7,7 @@
 
 CC		= g++
 
-CFLAGS	= -std=c++2a -Wall -Wextra -Werror
+CFLAGS	= -std=c++20 -Wall -Wextra -Werror
 
 SRC		= $(wildcard src/*.cpp)
 

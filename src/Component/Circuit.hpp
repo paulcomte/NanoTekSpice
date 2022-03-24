@@ -14,6 +14,11 @@
 
 namespace nts {
 
+    class Input;
+    class Clock;
+    class True;
+    class False;
+
     class Circuit {
         public:
             Circuit(std::map<std::string, std::shared_ptr<nts::IComponent>> components = {});
@@ -26,6 +31,12 @@ namespace nts {
             std::string getFormatedOutputs() const;
 
             void simulate();
+
+            std::string getInputValue(IComponent *input) const;
+            std::string getInputValue(Input const *input) const;
+            std::string getInputValue(Clock const *input) const;
+            std::string getInputValue(True const *input) const;
+            std::string getInputValue(False const *input) const;
 
         private:
             std::map<std::string, std::shared_ptr<nts::IComponent>> _components;
