@@ -117,7 +117,7 @@ std::map<std::string, std::shared_ptr<nts::IComponent>> ComponentManager::_creat
         std::regex_search(raw, m, std::regex("(?:.*?[:]+){1}.*?([:0-9.]+)"));
         if (m.size() != 2)
             throw ComponentManager::Error("Unknown pin");
-        pin = std::atol(((std::string) m[1]).c_str());
+        pin = std::atol((static_cast<std::string> (m[1])).c_str());
         std::regex_search(raw, m, std::regex("(?= ).+?(?=:)"));
         if (m.size() != 1)
             throw ComponentManager::Error("Unknown gate name");
