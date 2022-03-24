@@ -13,6 +13,7 @@ ComponentManager::ComponentManager(std::vector<std::string> file) : _file(file) 
         throw Error("Invalid file:\n[" + this->_retrieveFileContent() + std::string("] chipsets and or links number is invalid"));
     std::map<std::string, std::shared_ptr<nts::IComponent>> _components = this->_createChipsets();
     this->_circuit = nts::Circuit(this->_createLinks(_components));
+    this->_circuit.simulate();
 }
 
 bool ComponentManager::_isFileValid() {
