@@ -8,13 +8,13 @@
 #ifndef OUTPUT_HPP_
     #define OUTPUT_HPP_
     #include <map>
+    #include "../Component.hpp"
     #include "../ComponentManager.hpp"
-    #include "../IComponent.hpp"
     #include "../Link.hpp"
 
 namespace nts {
 
-    class Output : public IComponent {
+    class Output : public Component {
         public:
             Output();
             ~Output() override;

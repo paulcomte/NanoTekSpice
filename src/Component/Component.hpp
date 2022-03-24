@@ -2,31 +2,23 @@
 ** EPITECH PROJECT, 2022
 ** NanoTekSpice
 ** File description:
-** True
+** Component
 */
 
-#ifndef TRUE_HPP_
-    #define TRUE_HPP_
-    #include <map>
-    #include "../Component.hpp"
-    #include "../ComponentManager.hpp"
-    #include "../Link.hpp"
+#ifndef COMPONENT_HPP_
+    #define COMPONENT_HPP_
+    #include "IComponent.hpp"
 
 namespace nts {
 
-    class True : public Component {
+    class Component : public IComponent {
         public:
-            True();
-            ~True() override;
+            ~Component() override;
             void simulate(std::size_t tick) override;
             nts::Tristate compute(std::size_t pin) override;
             void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin) override;
             void dump() const override;
-
-        private:
-            Link _pins[1];
     };
 
 }
-
-#endif /* !TRUE_HPP_ */
+#endif /* !COMPONENT_HPP_ */

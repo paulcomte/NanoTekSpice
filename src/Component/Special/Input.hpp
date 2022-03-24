@@ -8,13 +8,13 @@
 #ifndef INPUT_HPP_
     #define INPUT_HPP_
     #include <map>
-    #include "../IComponent.hpp"
+    #include "../Component.hpp"
     #include "../Link.hpp"
     #include "../ComponentManager.hpp"
 
 namespace nts {
 
-    class Input : public IComponent {
+    class Input : public Component {
         public:
             Input();
             ~Input() override;

@@ -8,13 +8,13 @@
 #ifndef CLOCK_HPP_
     #define CLOCK_HPP_
     #include <map>
-    #include "../IComponent.hpp"
+    #include "../Component.hpp"
     #include "../Link.hpp"
     #include "../ComponentManager.hpp"
 
 namespace nts {
 
-    class Clock : public IComponent {
+    class Clock : public Component {
         public:
             Clock();
             ~Clock() override;

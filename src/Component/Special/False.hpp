@@ -8,13 +8,13 @@
 #ifndef FALSE_HPP_
     #define FALSE_HPP_
     #include <map>
+    #include "../Component.hpp"
     #include "../ComponentManager.hpp"
-    #include "../IComponent.hpp"
     #include "../Link.hpp"
 
 namespace nts {
 
-    class False : public IComponent {
+    class False : public Component {
         public:
             False();
             ~False() override;
