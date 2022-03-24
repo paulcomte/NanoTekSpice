@@ -20,7 +20,6 @@ class ShellManager {
     public:
         ShellManager(ComponentManager &componentManager);
         ~ShellManager() {}
-        bool isTty();
         void runShell();
 
         class Error : public std::exception {
@@ -55,8 +54,6 @@ class ShellManager {
 
     private:
         ComponentManager _componentManager;
-        bool _setTty(void);
-        bool _tty;
         std::vector<std::unique_ptr<ICommand>> _commands;
         ICommand *_retrieveCommand(std::string commandName);
         void _parseCommand(std::string command);

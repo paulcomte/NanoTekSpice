@@ -11,9 +11,7 @@
 #include <fstream>
 
 ShellManager::ShellManager(ComponentManager &componentManager) : _componentManager(componentManager) {
-    this->_tty = _setTty();
     this->_ticks = 0;
-
     this->_commands.push_back(std::unique_ptr<ICommand>(new ICommand(Commands::display, std::string("display"))));
     this->_commands.push_back(std::unique_ptr<ICommand>(new ICommand(Commands::exit, std::string("exit"))));
     this->_commands.push_back(std::unique_ptr<ICommand>(new ICommand(Commands::simulate, std::string("simulate"))));
@@ -22,8 +20,7 @@ ShellManager::ShellManager(ComponentManager &componentManager) : _componentManag
 void ShellManager::runShell() {
     std::string line;
 
-    if (this->isTty())
-         std::cout << "> ";
+    std::cout << "> ";
     if (!(std::getline(std::cin, line)))
         return;
     try {
@@ -76,22 +73,12 @@ void ShellManager::_parseCommand(std::string commandName)
     command->execute(*this);
 }
 
-bool ShellManager::isTty() {
-    return (this->_tty);
-}
-
 ICommand *ShellManager::_retrieveCommand(std::string commandName) {
     for(std::unique_ptr<ICommand> &command : this->_commands) {
         if (command.get() != nullptr && command.get()->getName() == commandName)
             return (command.get());
     }
     return (nullptr);
-}
-
-bool ShellManager::_setTty(void) {
-    if (isatty(0))
-        return (true);
-    return (false);
 }
 
 nts::Circuit ShellManager::getCircuit() {

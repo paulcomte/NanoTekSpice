@@ -38,7 +38,7 @@ std::vector<std::string> FileManager::_getContent() {
     std::vector<std::string> content;
 
     std::string line;
-    this->_file.open(this->_filepath, std::ios::out);
+    this->_file.open(this->_filepath, std::ios::in);
     while (std::getline(this->_file, line)) {
         if (line.compare(0, 1, "#") == 0)
             continue;
