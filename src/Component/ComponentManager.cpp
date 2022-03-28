@@ -100,6 +100,12 @@ std::map<std::string, std::shared_ptr<nts::IComponent>> ComponentManager::_creat
             chipsets[name] = std::unique_ptr<nts::OR>(new nts::OR());
         else if (type == "4069")
             chipsets[name] = std::unique_ptr<nts::NOT>(new nts::NOT());
+        else if (type == "4011")
+            chipsets[name] = std::unique_ptr<nts::NAND>(new nts::NAND());
+        else if (type == "4001")
+            chipsets[name] = std::unique_ptr<nts::NOR>(new nts::NOR());
+        else if (type == "4030")
+            chipsets[name] = std::unique_ptr<nts::XOR>(new nts::XOR());
         else
             throw ComponentManager::Error("Invalid type: " + type + " is not a known type");
     }
