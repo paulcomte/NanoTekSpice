@@ -13,7 +13,9 @@
     #include <memory>
     #include <regex>
     #include "Circuit.hpp"
-    #include "Chipsets/4040.hpp"
+    #include "Gates/AND.hpp"
+    #include "Gates/OR.hpp"
+    #include "Gates/NOT.hpp"
     #include "Special/Input.hpp"
     #include "Special/Clock.hpp"
     #include "Special/True.hpp"

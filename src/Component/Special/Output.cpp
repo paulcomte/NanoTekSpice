@@ -28,7 +28,7 @@ namespace nts {
         if (pin == 1) {
             if (this->_pins->getComponent() == nullptr)
                 return (this->_state);
-            this->_state = this->_pins->getComponent()->compute(1);
+            this->_state = this->_pins->getComponent()->compute(this->_pins->getPin());
             return (this->_state);
         }
         return (UNDEFINED);
