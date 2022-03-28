@@ -29,6 +29,7 @@ namespace nts {
             Link _pins[1];
             Tristate _state;
             Tristate _newState;
+            bool _hasValue;
     };
 
 }
