@@ -32,12 +32,6 @@ namespace nts {
 
             void simulate();
 
-            std::string getInputValue(IComponent *input) const;
-            std::string getInputValue(Input const *input) const;
-            std::string getInputValue(Clock const *input) const;
-            std::string getInputValue(True const *input) const;
-            std::string getInputValue(False const *input) const;
-
         private:
             std::map<std::string, std::shared_ptr<nts::IComponent>> _components;
             std::string _getStateName(Tristate value) const;
