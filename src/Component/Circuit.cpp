@@ -55,7 +55,7 @@ namespace nts {
         nts::Clock *clockTarget = dynamic_cast<nts::Clock*>(input);
         if (clockTarget != nullptr)
             return (getInputValue(clockTarget));
-        return ("");
+        return ("unknown");
     }
 
     std::string Circuit::getFormatedInputs() const {
