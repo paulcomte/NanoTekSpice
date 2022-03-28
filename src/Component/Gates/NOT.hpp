@@ -24,6 +24,7 @@ namespace nts {
 
             private:
                 Link _pins[15];
+                Tristate _process(std::size_t pin1);
     };
 }
 
