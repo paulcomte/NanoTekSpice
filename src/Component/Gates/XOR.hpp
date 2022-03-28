@@ -16,6 +16,7 @@ namespace nts {
 
     class XOR : public IComponent {
             public:
+                XOR();
                 ~XOR() override;
                 void simulate(std::size_t tick) override;
                 Tristate compute(std::size_t pin) override;

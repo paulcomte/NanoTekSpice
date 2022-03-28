@@ -16,6 +16,7 @@ namespace nts {
 
     class OR : public IComponent {
             public:
+                OR();
                 ~OR() override;
                 void simulate(std::size_t tick) override;
                 nts::Tristate compute(std::size_t pin) override;

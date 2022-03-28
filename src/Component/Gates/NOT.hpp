@@ -16,6 +16,7 @@ namespace nts {
 
     class NOT : public IComponent {
             public:
+                NOT();
                 ~NOT() override;
                 void simulate(std::size_t tick) override;
                 nts::Tristate compute(std::size_t pin) override;

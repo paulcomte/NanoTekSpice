@@ -16,6 +16,7 @@ namespace nts {
 
     class NOR : public IComponent {
             public:
+                NOR();
                 ~NOR() override;
                 void simulate(std::size_t tick) override;
                 Tristate compute(std::size_t pin) override;

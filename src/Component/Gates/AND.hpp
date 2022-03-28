@@ -16,6 +16,7 @@ namespace nts {
 
     class AND : public IComponent {
             public:
+                AND();
                 ~AND() override;
                 void simulate(std::size_t tick) override;
                 Tristate compute(std::size_t pin) override;

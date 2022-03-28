@@ -9,6 +9,11 @@
 
 namespace nts {
 
+    NAND::NAND() {
+        for (int i = 0; i < 15; i++)
+            this->_pins[i] = Link(nullptr, 0);
+    }
+
     NAND::~NAND() {
 
     }
