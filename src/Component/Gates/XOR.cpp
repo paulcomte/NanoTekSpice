@@ -39,8 +39,6 @@ namespace nts {
 
 
     Tristate XOR::compute(std::size_t pin) {
-        if (pin == 0)
-            return (UNDEFINED);
         if (pin == 3)
             return (this->_process(1, 2));
         if (pin == 4)

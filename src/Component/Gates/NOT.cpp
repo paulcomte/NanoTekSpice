@@ -35,8 +35,6 @@ namespace nts {
 
 
     Tristate NOT::compute(std::size_t pin) {
-        if (pin == 0)
-            return (UNDEFINED);
         if (pin == 2)
             return (this->_process(1));
         if (pin == 4)
