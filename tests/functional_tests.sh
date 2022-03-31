@@ -62,6 +62,7 @@ simple_diff_status "" "test" 84 "Incorrect extension"
 simple_diff_status "" ".nts" 84 "Too short file name"
 chmod 0 no_permission.nts
 simple_diff_status "" "no_permission.nts" 84 "No permission to read the file"
+chmod 644 no_permission.nts
 simple_diff_status "" "no_links.nts" 84 "no links"
 simple_diff_status "" "no_chipsets.nts" 84 "no chipset"
 simple_diff_status "" "unknown_input.nts" 84 "unknown input name"
