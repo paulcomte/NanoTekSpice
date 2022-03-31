@@ -34,6 +34,8 @@ namespace nts {
             return (UNDEFINED);
         if (state1 == TRUE || state2 == TRUE)
             return (TRUE);
+        if (state1 == UNDEFINED || state2 == UNDEFINED)
+            return (UNDEFINED);
         return (FALSE);
     }
 

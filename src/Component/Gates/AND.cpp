@@ -32,7 +32,11 @@ namespace nts {
         state2 = this->_pins[pin2-1].getComponent()->compute(this->_pins[pin2-1].getPin());
         if (state1 == UNDEFINED && state2 == UNDEFINED)
             return (UNDEFINED);
-        return (state1 == TRUE && state2 == TRUE ? TRUE: FALSE);
+        if (state1 == FALSE || state2 == FALSE)
+            return (FALSE);
+        if (state1 == UNDEFINED || state2 == UNDEFINED)
+            return (UNDEFINED);
+        return (TRUE);
     }
 
 
